@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import org.json.*;
 
 public class HelloController {
 	@FXML
@@ -18,6 +19,11 @@ public class HelloController {
 		);
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
 		String weatherInfo = bufferedReader.readLine();
-		welcomeText.setText("Welcome to JavaFX Application!" + "\n" + weatherInfo);
+
+		JSONObject jsonObject = new JSONObject(weatherInfo);
+		JSONObject jsonObject1 = (JSONObject) jsonObject.get("main");
+		String mainTag = String.valueOf(jsonObject1.get("temp"));
+
+		welcomeText.setText("Welcome to JavaFX Application!" + "\n" + mainTag);
 	}
 }
